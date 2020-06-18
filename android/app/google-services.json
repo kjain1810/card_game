@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "279780878070",
+    "firebase_url": "https://cards-dcdc5.firebaseio.com",
+    "project_id": "cards-dcdc5",
+    "storage_bucket": "cards-dcdc5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:279780878070:android:93d5123d37cd902cafaed7",
+        "android_client_info": {
+          "package_name": "com.example.cards"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "279780878070-k2e0qtivilpki7mhh86n1qa01u117d00.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXLngmRINJ-DccWIaZvtjwx80REucWdp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "279780878070-k2e0qtivilpki7mhh86n1qa01u117d00.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
