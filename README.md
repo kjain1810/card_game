@@ -1,6 +1,6 @@
 # cards
 
-Card game dehla pakad
+A random multiplayer card game played across multiple devices over the internet
 
 ## Getting Started
 
