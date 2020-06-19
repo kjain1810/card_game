@@ -1,22 +1,24 @@
+import 'package:cards/classes/authentication.dart';
 import 'package:cards/classes/database.dart';
 
-Future<bool> createGame(String name) async {
-	// TODO: check if game with name = name exists
+Future<String> createGame(String name) async {
 
   DataBaseServices db = new DataBaseServices(name: name);
 
 	bool alreadyExist = await db.checkGameExistence();
 	if(alreadyExist == true) {
-		return false;
+		return "Game already exists";
 	}
 
 	String gameID = await db.insertGame();
   db.updatePlayers();
 
-  // TODO: anon login and set up stream of uid
+  final Authentication _auth = Authentication(gameID: gameID);
+  dynamic res = await _auth.signIn();
+  if(res == null) {
+    return "Sign-in failed, create with new game name";
+  }
 
-	// TODO: set up stream of gameID
-
-  return true;
+  return "No errors";
 
 }

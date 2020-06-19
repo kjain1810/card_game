@@ -1,4 +1,6 @@
+import 'package:cards/classes/user.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SelectPlayer extends StatefulWidget {
   @override
@@ -8,6 +10,9 @@ class SelectPlayer extends StatefulWidget {
 class _SelectPlayerState extends State<SelectPlayer> {
   @override
   Widget build(BuildContext context) {
+    
+    final _user = Provider.of<User>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Select Player"),
