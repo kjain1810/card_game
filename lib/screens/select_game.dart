@@ -50,13 +50,28 @@ class _SelectGameState extends State<SelectGame> {
                     child: Text("Create new game"),
                     onPressed: () async {
                       if(_formKeyCreate.currentState.validate()) {
-                        if(await createGame(_createName) == false) {
-                          // TODO: add pop up
-                          print("exists");
+                        String res = await createGame(_createName);
+                        if(res != "No errors") {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: new Text("Sorry! Try again"),
+                                content: new Text(res),
+                                actions: <Widget>[
+                                  new FlatButton(
+                                    child: new Text("Close"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         }
                         else {
-                          // TODO: redirect to select user page
-                          print("created");
+                          Navigator.popAndPushNamed(context, "/select");
                         }
                       }
                     },
@@ -87,13 +102,28 @@ class _SelectGameState extends State<SelectGame> {
                     child: Text("Join game"),
                     onPressed: () async {
                       if(_formKeyJoin.currentState.validate()) {
-                        if(await joinGame(_joinName) == false) {
-                          // TODO: pop up
-                          print("doesnt exist");
+                        String res = await joinGame(_joinName);
+                        if(res != "No errors") {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: new Text("Sorry! Try again"),
+                                content: new Text(res),
+                                actions: <Widget>[
+                                  new FlatButton(
+                                    child: new Text("Close"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         }
                         else {
-                          // TODO: redirect to select player
-                          print("joining");
+                          Navigator.of(context).popAndPushNamed("/select");
                         }
                       }
                     },

@@ -1,27 +1,30 @@
+import 'package:cards/classes/authentication.dart';
 import 'package:cards/classes/database.dart';
 
-Future<bool> joinGame(String name) async {
+Future<String> joinGame(String name) async {
 
   DataBaseServices db = new DataBaseServices(name: name);
 
   bool alreadyExist = await db.checkGameExistence();
 	if(alreadyExist == false) {
-		return false;
+		return "Game does not exist";
 	}
 
   bool spotAvailable = await db.checkAvailability();
   if(spotAvailable == false) {
-    return false;
+    return "Game full";
   }
 
   String gameID = await db.getGameID();
 
-  // TODO: anon login and set up stream of uid
-
   db.updatePlayers();
 
-  // TODO: set up stream of gameID
+  final Authentication _auth = Authentication(gameID: gameID);
+  dynamic res = await _auth.signIn();
+  if(res == null) {
+    return "Sign-in failed, create with new game name";
+  }
 
-  return true; // TODO: REMOVE
+  return "No errors";
 
 }
