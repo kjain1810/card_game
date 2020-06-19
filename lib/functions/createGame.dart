@@ -1,11 +1,22 @@
-void createGame(String name) {
-  // create game in database with name = name or tell if the game of this name already exists
-  // do anon login if game is created
+import 'package:cards/classes/database.dart';
 
-  // TODO: check if game with name = name exists
+Future<bool> createGame(String name) async {
+	// TODO: check if game with name = name exists
 
-  // TODO: pop up if game already exists
+  DataBaseServices db = new DataBaseServices(name: name);
 
-  // TODO: create game, go to select player if game doesnt exist
+	bool alreadyExist = await db.checkGameExistence();
+	if(alreadyExist == true) {
+		return false;
+	}
+
+	String gameID = await db.insertGame();
+  db.updatePlayers();
+
+  // TODO: anon login and set up stream of uid
+
+	// TODO: set up stream of gameID
+
+  return true;
 
 }

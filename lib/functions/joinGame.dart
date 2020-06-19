@@ -1,12 +1,27 @@
-void joinGame(String name) {
-  // TODO: check if game with name = name already exists or not
+import 'package:cards/classes/database.dart';
 
-  // TODO: pop up if game doesnt exist
+Future<bool> joinGame(String name) async {
 
-  // TODO: if game exists, check availability
+  DataBaseServices db = new DataBaseServices(name: name);
 
-  // TODO: pop up if game is full
+  bool alreadyExist = await db.checkGameExistence();
+	if(alreadyExist == false) {
+		return false;
+	}
 
-  // TODO: anon login, update number of players in game in database, go to select player
+  bool spotAvailable = await db.checkAvailability();
+  if(spotAvailable == false) {
+    return false;
+  }
+
+  String gameID = await db.getGameID();
+
+  // TODO: anon login and set up stream of uid
+
+  db.updatePlayers();
+
+  // TODO: set up stream of gameID
+
+  return true; // TODO: REMOVE
 
 }
