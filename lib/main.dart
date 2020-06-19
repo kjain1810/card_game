@@ -1,4 +1,4 @@
-import 'package:cards/screens/create_game.dart';
+import 'package:cards/screens/select_game.dart';
 import 'package:cards/screens/game.dart';
 import 'package:cards/screens/select_player.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ Future<void> main() async{
         fontFamily: 'Montserrat'
       ),
       routes: {
-        '/': (context) => CreateGame(),
+        '/': (context) => SelectGame(),
         '/select': (context) => SelectPlayer(),
         '/game': (context) => Game(),
       },

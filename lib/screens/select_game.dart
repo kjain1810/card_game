@@ -3,12 +3,12 @@ import 'package:cards/functions/joinGame.dart';
 import 'package:cards/helpers/input_box.dart';
 import 'package:flutter/material.dart';
 
-class CreateGame extends StatefulWidget {
+class SelectGame extends StatefulWidget {
   @override
-  _CreateGameState createState() => _CreateGameState();
+  _SelectGameState createState() => _SelectGameState();
 }
 
-class _CreateGameState extends State<CreateGame> {
+class _SelectGameState extends State<SelectGame> {
 
   final _formKeyCreate = GlobalKey<FormState>();
   final _formKeyJoin = GlobalKey<FormState>();
@@ -48,9 +48,16 @@ class _CreateGameState extends State<CreateGame> {
                   RaisedButton(
                     color: Colors.grey[500],
                     child: Text("Create new game"),
-                    onPressed: () {
+                    onPressed: () async {
                       if(_formKeyCreate.currentState.validate()) {
-                        createGame(_createName);
+                        if(await createGame(_createName) == false) {
+                          // TODO: add pop up
+                          print("exists");
+                        }
+                        else {
+                          // TODO: redirect to select user page
+                          print("created");
+                        }
                       }
                     },
                   ),
@@ -78,9 +85,16 @@ class _CreateGameState extends State<CreateGame> {
                   RaisedButton(
                     color: Colors.grey[500],
                     child: Text("Join game"),
-                    onPressed: (){
+                    onPressed: () async {
                       if(_formKeyJoin.currentState.validate()) {
-                        joinGame(_joinName);
+                        if(await joinGame(_joinName) == false) {
+                          // TODO: pop up
+                          print("doesnt exist");
+                        }
+                        else {
+                          // TODO: redirect to select player
+                          print("joining");
+                        }
                       }
                     },
                   ),
