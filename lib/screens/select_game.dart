@@ -47,6 +47,9 @@ class _SelectGameState extends State<SelectGame> {
                   ),
                   SizedBox(height: 20.0,),
                   RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))
+                    ),
                     color: Colors.grey[500],
                     child: Text("Create new game"),
                     onPressed: () async {
@@ -79,10 +82,13 @@ class _SelectGameState extends State<SelectGame> {
                       });
                     },
                     decoration: inputBox("Enter name"),
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white, backgroundColor: Colors.transparent),
                   ),
                   SizedBox(height: 20.0,),
                   RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))
+                    ),
                     color: Colors.grey[500],
                     child: Text("Join game"),
                     onPressed: () async {

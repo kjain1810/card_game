@@ -30,7 +30,7 @@ class _SelectPlayerState extends State<SelectPlayer> {
               margin: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.grey[500],
-                borderRadius: BorderRadius.all(Radius.circular(20)),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
               child: ListTile(
                 leading: Icon(Icons.person, color: Colors.white),

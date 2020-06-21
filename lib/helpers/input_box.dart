@@ -6,5 +6,7 @@ inputBox(String text) => InputDecoration(
   filled: true,
   labelStyle: TextStyle(
     color: Colors.grey[500],
+    backgroundColor: Colors.transparent
   ),
+  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))
 );
