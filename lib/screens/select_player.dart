@@ -1,7 +1,6 @@
 import 'package:cards/classes/gameControl.dart';
-import 'package:cards/classes/user.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectPlayer extends StatefulWidget {
   @override
@@ -12,9 +11,6 @@ class _SelectPlayerState extends State<SelectPlayer> {
   @override
   Widget build(BuildContext context) {
     
-    final _user = Provider.of<User>(context);
-    GameControl _gc = new GameControl(gameID: _user.gameID, uid: _user.uid);
-
     final List<int> playerList = <int>[1, 2, 3, 4];
 
     return Scaffold(
@@ -32,6 +28,10 @@ class _SelectPlayerState extends State<SelectPlayer> {
             return ListTile(
               title: Text("Player ${playerList[index]}"),
               onTap: () async { 
+                final prefs = await SharedPreferences.getInstance();
+                String _uid = prefs.getString("uid");
+                String _gameID = prefs.getString("gameID");
+                GameControl _gc = new GameControl(gameID: _gameID, uid: _uid);
                 String res = await _gc.checkPlayerAvailability(playerList[index]);
                 if(res != "Available") {
                   showDialog(
@@ -53,7 +53,7 @@ class _SelectPlayerState extends State<SelectPlayer> {
                   );
                 }
                 else {
-                  bool isSet = await _gc.setPlayer(index);
+                  bool isSet = await _gc.setPlayer(playerList[index]);
                   if(isSet) {
                     Navigator.popAndPushNamed(context, "/game");
                   }

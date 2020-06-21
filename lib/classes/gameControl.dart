@@ -1,4 +1,3 @@
-import 'package:cards/classes/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GameControl {
@@ -12,8 +11,8 @@ class GameControl {
   Future<String> checkPlayerAvailability(int i) async {
     dynamic ref;
     try {
-      games.document(gameID).get().then((value) {
-        ref = value;
+      ref = await games.document(gameID).get().then((value) {
+        return value;
       });
     } catch(e) {
       print(e);
@@ -22,7 +21,8 @@ class GameControl {
     if(ref == null) {
       return "Try again!";
     }
-    if(ref.data["player" + i.toString()] != null) {
+    String reqPlayer = "player" + i.toString();
+    if(ref.data[reqPlayer]!= null) {
       return "Player taken";
     }
     return "Available";
@@ -30,7 +30,7 @@ class GameControl {
 
   Future<bool> setPlayer(int i) async {
     try{
-      await games.document(gameID).setData({
+      await games.document(gameID).updateData({
         "player" + i.toString(): uid,
       });
       return true;

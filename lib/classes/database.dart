@@ -39,9 +39,9 @@ class DataBaseServices {
 			"score2": 0,
 			"cnt_players": 0,
 		});
-		print(ref.documentID);
-		return gameID = ref.documentID;
-	}
+	  gameID = ref.documentID;
+    return gameID;
+  }
 
 	Future<bool> checkAvailability() async {
 		QuerySnapshot qs;

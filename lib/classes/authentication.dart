@@ -13,10 +13,6 @@ class Authentication {
     return user == null ? null : User(uid: user.uid, gameID: gameID);
   }
 
-  Stream<User> get user {
-    return _auth.onAuthStateChanged.map(_userFromFirebase);
-  }
-
   Future signIn() async {
     try {
       AuthResult res = await _auth.signInAnonymously();

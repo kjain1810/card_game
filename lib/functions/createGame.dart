@@ -1,5 +1,6 @@
 import 'package:cards/classes/authentication.dart';
 import 'package:cards/classes/database.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<String> createGame(String name) async {
 
@@ -18,6 +19,10 @@ Future<String> createGame(String name) async {
   if(res == null) {
     return "Sign-in failed, create with new game name";
   }
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString("gameID", gameID);
+  prefs.setString("uid", res.uid);
 
   return "No errors";
 
