@@ -1,4 +1,5 @@
 import 'package:cards/classes/gameControl.dart';
+import 'package:cards/helpers/popUp.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,62 +23,43 @@ class _SelectPlayerState extends State<SelectPlayer> {
       body: Container(
         padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
         child: ListView.builder(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(20),
           itemCount: playerList.length,
           itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              title: Text("Player ${playerList[index]}"),
-              onTap: () async { 
-                final prefs = await SharedPreferences.getInstance();
-                String _uid = prefs.getString("uid");
-                String _gameID = prefs.getString("gameID");
-                GameControl _gc = new GameControl(gameID: _gameID, uid: _uid);
-                String res = await _gc.checkPlayerAvailability(playerList[index]);
-                if(res != "Available") {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: new Text("Sorry! Try again"),
-                        content: new Text(res),
-                        actions: <Widget>[
-                          new FlatButton(
-                            child: new Text("Close"),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }
-                else {
-                  bool isSet = await _gc.setPlayer(playerList[index]);
-                  if(isSet) {
-                    Navigator.popAndPushNamed(context, "/game");
+            return Container(
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.grey[500],
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              child: ListTile(
+                leading: Icon(Icons.person, color: Colors.white),
+                title: Text("Player ${playerList[index]}",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),),
+                trailing: Icon(Icons.arrow_forward, color:Colors.white),
+                onTap: () async { 
+                  final prefs = await SharedPreferences.getInstance();
+                  String _uid = prefs.getString("uid");
+                  String _gameID = prefs.getString("gameID");
+                  GameControl _gc = new GameControl(gameID: _gameID, uid: _uid);
+                  String res = await _gc.checkPlayerAvailability(playerList[index]);
+                  if(res != "Available") {
+                    popUp(context, res);
                   }
                   else {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: new Text("Sorry! Try again"),
-                          content: new Text("Oops, something went wrong"),
-                          actions: <Widget>[
-                            new FlatButton(
-                              child: new Text("Close"),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
+                    bool isSet = await _gc.setPlayer(playerList[index]);
+                    if(isSet) {
+                      Navigator.popAndPushNamed(context, "/game");
+                    }
+                    else {
+                      popUp(context, res);
+                    }
                   }
-                }
-              },
+                },
+              ),
             );
           },
         ),

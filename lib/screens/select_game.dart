@@ -1,6 +1,7 @@
 import 'package:cards/functions/createGame.dart';
 import 'package:cards/functions/joinGame.dart';
 import 'package:cards/helpers/input_box.dart';
+import 'package:cards/helpers/popUp.dart';
 import 'package:flutter/material.dart';
 
 class SelectGame extends StatefulWidget {
@@ -52,23 +53,7 @@ class _SelectGameState extends State<SelectGame> {
                       if(_formKeyCreate.currentState.validate()) {
                         String res = await createGame(_createName);
                         if(res != "No errors") {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: new Text("Sorry! Try again"),
-                                content: new Text(res),
-                                actions: <Widget>[
-                                  new FlatButton(
-                                    child: new Text("Close"),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          );
+                          popUp(context, res);
                         }
                         else {
                           Navigator.popAndPushNamed(context, "/select");
@@ -104,23 +89,7 @@ class _SelectGameState extends State<SelectGame> {
                       if(_formKeyJoin.currentState.validate()) {
                         String res = await joinGame(_joinName);
                         if(res != "No errors") {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: new Text("Sorry! Try again"),
-                                content: new Text(res),
-                                actions: <Widget>[
-                                  new FlatButton(
-                                    child: new Text("Close"),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          );
+                          popUp(context, res);
                         }
                         else {
                           Navigator.of(context).popAndPushNamed("/select");
